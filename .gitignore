@@ -1,0 +1,44 @@
+# --- Dependencias ---
+vendor/
+node_modules/
+
+# --- Configuraciones locales (Seguridad) ---
+.env
+.env.local
+.env.production.local
+*.secret
+config.php
+config.local.php
+
+# --- Logs y Archivos temporales ---
+*.log
+error_log
+/storage/*.key
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+
+# --- Caché y Bases de datos ---
+.cache
+.phpunit.result.cache
+*.sqlite
+*.sql
+*.zip
+*.tar.gz
+
+# --- IDEs / Editores ---
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# --- Archivos del Sistema Operativo ---
+.DS_Store
+Thumbs.db
+
+temp/
+configs.php
+
