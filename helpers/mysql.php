@@ -6,7 +6,9 @@ class MyDatabase
 
 	/**
 	 * Create a new DB connection.
+	 *
 	 * $config can contain: host, user, pass, db, port
+	 *
 	 * Example: new MySQLDatabase(['host'=>'localhost','user'=>'root','pass'=>'','db'=>'mydb'])
      *
      * $db = new MySQLDatabase(['host' => 'localhost', 'user' => 'root', 'pass' => 'password123', 'db' => 'mydb']);
@@ -82,7 +84,7 @@ class MyDatabase
      *
      * $id = $db->insert('users', ['name' => 'Ruben', 'age' => 30]);
     */
-	public function insert(string $table, array $data)
+	public function insert(string $table, array $data): mixed
 	{
 		$cols = array_keys($data);
 		$vals = array_values($data);
@@ -109,7 +111,7 @@ class MyDatabase
      *
      * $updated = $db->update('users', ['name' => 'Roberto'], 'id = ?', [$id]);
      */
-	public function update(string $table, array $data, string $where, array $whereParams = [])
+	public function update(string $table, array $data, string $where, array $whereParams = []): int
 	{
 		$cols = array_keys($data);
 		$vals = array_values($data);
@@ -136,7 +138,7 @@ class MyDatabase
      *
      * $deleted = $db->delete('users', 'id = ?', [$id]);
      */
-	public function delete(string $table, string $where, array $params = [])
+	public function delete(string $table, string $where, array $params = []): int
 	{
 		$sql = "DELETE FROM `{$table}` WHERE {$where}";
 		$stmt = $this->conn->prepare($sql);
@@ -158,7 +160,7 @@ class MyDatabase
      *
      * $user = $db->select('users', 'id = ?', [$id]);
      */
-	public function select(string $table, string $where = '', array $params = [])
+	public function select(string $table, string $where = '', array $params = []): ?array
 	{
 		$sql = "SELECT * FROM `{$table}`" . ($where !== '' ? " WHERE {$where}" : '') . " LIMIT 1";
 		$stmt = $this->conn->prepare($sql);
@@ -264,7 +266,7 @@ class MyDatabase
 	}
 
 	/** Fetch a single associative row from an executed statement. */
-	private function fetchAssocFromStmt(mysqli_stmt $stmt)
+	private function fetchAssocFromStmt(mysqli_stmt $stmt): ?array
 	{
 		if (method_exists($stmt, 'get_result')) {
 			$res = $stmt->get_result();

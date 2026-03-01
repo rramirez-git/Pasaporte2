@@ -58,7 +58,7 @@ class Table
 	 * @return mixed Inserted id
 	 * @throws Exception
 	 */
-	public function insert(array $data)
+	public function insert(array $data): mixed
 	{
 		return self::$connection->insert($this->table, $data);
 	}
@@ -76,7 +76,7 @@ class Table
 	 * @return array|null Associative array or null
 	 * @throws Exception
 	 */
-	public function select(string $where = '', array $params = [])
+	public function select(string $where = '', array $params = []): ?array
 	{
 		return self::$connection->select($this->table, $where, $params);
 	}
@@ -115,7 +115,7 @@ class Table
 	 * @return int Number of affected rows
 	 * @throws Exception
 	 */
-	public function update(array $data, string $where, array $params = [])
+	public function update(array $data, string $where, array $params = []): int
 	{
 		return self::$connection->update($this->table, $data, $where, $params);
 	}
@@ -135,7 +135,7 @@ class Table
 	 * @return int Number of affected rows
 	 * @throws Exception
 	 */
-	public function delete(string $where, array $params = [])
+	public function delete(string $where, array $params = []): int
 	{
 		return self::$connection->delete($this->table, $where, $params);
 	}
@@ -172,21 +172,6 @@ class Table
 	{
 		return $this->table;
 	}
-
-	/**
-	 * Get the static database connection instance.
-	 * Useful if you need to run operations outside of this table.
-     *
-     * $db = Table::getDB();
-     *
-     * $custom = $db->selectAll('users');
-	 *
-	 * @return MySQLDatabase
-	 */
-	public static function getDB() : mixed
-	{
-		return self::$connection ?? self::getConnection();
-	}
 	public function getFields() : array
 	{
 		return self::$connection->getFields($this->table);
@@ -196,7 +181,6 @@ class Table
 class Model extends Table
 {
 	private $data = [];
-	private $pk = null;
 	public function __construct(string $table, array $config = [])
 	{
 		parent::__construct($table, $config);
@@ -205,21 +189,29 @@ class Model extends Table
 			$this->data[$field] = null;
 		}
 	}
-	public function __get($name)
+	public function __get($name): mixed
 	{
 		if (!array_key_exists($name, $this->data)) {
-			throw new Exception("Undefined property: {$name}");
+			if ($name === "pk") {
+				$name = "id";
+			} else {
+				throw new Exception("Undefined property: {$name}");
+			}
 		}
 		return $this->data[$name];
 	}
 	public function __set($name, $value)
 	{
 		if(!array_key_exists($name, $this->data)) {
-			throw new Exception("Undefined property: {$name}");
+			if ($name === "pk") {
+				$name = "id";
+			} else {
+				throw new Exception("Undefined property: {$name}");
+			}
 		}
 		$this->data[$name] = $value;
 	}
-	public function get($pk)
+	public function get($pk): bool
 	{
 		$this->pk = $pk;
 		$row = parent::select('id = ?', [$pk]);
@@ -231,12 +223,15 @@ class Model extends Table
 		}
 		return false;
 	}
-	public function save()
+	public function save(): bool
 	{
 		if ($this->pk) {
 			return parent::update($this->data, 'id = ?', [$this->pk]);
 		} else {
-			$this->pk = parent::insert($this->data);
+			$data = $this->data;
+			unset($data['id']);
+			$this->pk = parent::insert($data);
+			$this->data['id'] = $this->pk;
 			return $this->pk !== false;
 		}
 	}
@@ -254,7 +249,7 @@ class Model extends Table
 	 * @return int Number of affected rows
 	 * @throws Exception
 	 */
-	public function delete(string $where = '', array $params = [])
+	public function delete(string $where = '', array $params = []): int
 	{
 		// if called without arguments we use the stored primary key
 		if (func_num_args() === 0) {
@@ -274,7 +269,7 @@ class Model extends Table
 		}
 		return $result;
 	}
-	public function toArray()
+	public function toArray(): array
 	{
 		return $this->data;
 	}
@@ -286,11 +281,11 @@ class Model extends Table
 			}
 		}
 	}
-	public function getPK()
+	public function getPK(): mixed
 	{
 		return $this->pk;
 	}
-	public function getAll()
+	public function getAll(): array
 	{
 		return parent::selectAll();
 	}
