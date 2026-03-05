@@ -16,4 +16,16 @@ class Permiso extends Model
     {
         return $this->codename ?? "Permiso";
     }
+
+    public function getAll(): array {
+        $data = parent::getAll();
+        uasort($data, function($a, $b) {
+            $cmp = strcmp($a['tipo'], $b['tipo']);
+            if ($cmp !== 0) return $cmp;
+            $cmp = strcmp($a['codename'], $b['codename']);
+            if ($cmp !== 0) return $cmp;
+            return strcmp($a['nombre'], $b['nombre']);
+        });
+        return $data;
+    }
 }
