@@ -22,7 +22,7 @@ $data = $object->getAll();
             <th>Costo interno</th>
             <th>Costo externo</th>
             <th>Registro</th>
-
+            <th class="no-sort">Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -37,6 +37,16 @@ $data = $object->getAll();
                 <td><?= htmlspecialchars($eventos['costo_externo']) ?></td>
                 <td><?= htmlspecialchars($eventos['requiere_registro']) ?></td>
                 <td class="text-center">
+                    <?php
+                    // botón de registro sólo si el evento aún no pasó y requiere registro
+                    $now = new DateTime();
+                    $fecha = new DateTime($eventos['fecha_hora']);
+                    if ($eventos['requiere_registro'] && $fecha >= $now): ?>
+                        <a class="btn btn-sm btn-primary" href="autoregistro.php?evento_id=<?= urlencode($eventos['id']) ?>">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                            Registrar
+                        </a>
+                    <?php endif; ?>
                     <a class="btn btn-outline-secondary" href="eventos.php?accion=mostrar&pk=<?= urlencode($eventos['id']) ?>">
                         <i class="fa-regular fa-eye"></i>
                         Mostrar
