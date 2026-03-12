@@ -9,6 +9,15 @@ if ($accion === 'registrar') {
     $usuario->activo = 1;
     $usuario->superusuario = 0;
 
+    // Asignar perfiles "Basico" y "Alumno"
+    $perfiles_asignar = [];
+    foreach ($usuario->todosLosPerfiles() as $perfil) {
+        if ($perfil['nombre'] === 'Basico' || $perfil['nombre'] === 'Alumno') {
+            $perfiles_asignar[] = $perfil['id'];
+        }
+    }
+    $_POST['perfiles'] = $perfiles_asignar;
+
     try {
         if ($usuario->save()) {
             // Redirige al login 
