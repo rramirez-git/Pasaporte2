@@ -1,7 +1,6 @@
 (function () {
 
-    /* ─── Helpers compartidos ─────────────────────────────── */
-
+    
     function actualizarEstadoMaestro(selectorChks, chkTodos) {
         if (!chkTodos) return;
         var chks = document.querySelectorAll(selectorChks);
@@ -10,8 +9,7 @@
         chkTodos.indeterminate = sel > 0 && sel < chks.length;
     }
 
-    /* ─── Vista CREAR ─────────────────────────────────────── */
-
+    
     var chkTodosCrear = document.getElementById('chk-todos');
     var btnSelAll     = document.getElementById('btn-sel-todos');
     var btnDesel      = document.getElementById('btn-desel-todos');
@@ -63,13 +61,11 @@
         });
     }
 
-    /* ─── Vista EDITAR ────────────────────────────────────── */
-
+   
     var chkTodosEditar = document.getElementById('chk-todos');   // mismo id, distinta vista
     var panelMover     = document.getElementById('panel-mover');
     var panelElim      = document.getElementById('panel-eliminar');
 
-    /* Alternar panel mover / eliminar */
     document.querySelectorAll('input[name="tipo_accion"]').forEach(function (r) {
         r.addEventListener('change', function () {
             if (panelMover) panelMover.classList.toggle('d-none', this.value === 'eliminar');
@@ -127,8 +123,7 @@
         });
     }
 
-    /* ─── Vista LISTAR — inicializar DataTable ────────────── */
-
+    
     document.addEventListener('DOMContentLoaded', function () {
         var tabla = document.getElementById('data-list');
         if (tabla && typeof $.fn !== 'undefined' && $.fn.DataTable) {
