@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const matricula = qrContainer.dataset.matricula;
         const id = qrContainer.dataset.id;
         const fallback = qrContainer.dataset.fallback;
-        let valor = (matricula && matricula.trim() !== '') ? matricula : id;
-        let prefijo = (matricula && matricula.trim() !== '') ? "Matrícula: " : "ID: ";
+        let valor = (matricula && matricula.trim() !== '' && matricula.trim() !== '0') ? matricula : id;
+        let prefijo = (matricula && matricula.trim() !== '' && matricula.trim() !== '0') ? "Matrícula: " : "ID: ";
         if (!valor || valor.trim() === '') {
             valor = fallback;
             prefijo = (valor && valor.length > 5) ? "Matrícula: " : "ID: ";
