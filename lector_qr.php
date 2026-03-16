@@ -4,27 +4,13 @@ session_start();
 
 include_once 'helpers/vars.php';
 
-// 1. Seguridad: Verificar sesión y permisos
+//  Verificar sesión y permisos
 if (!isset($_SESSION["current_user"]) || !$_SESSION["current_user"]->can("lector_qr.*")) {
     header("Location: index.php");
     exit();
 }
 
-// 2. Cargar lógica del controlador
-require_once 'app/lectorqr/lectorqrcontroller.php';
-$controller = new LectorQRController();
-
-$accion = getvar('accion') ?? getvar('action');
-
-// 3. Manejo de peticiones específicas (AJAX/API)
-if ($accion === 'view_sql' && getvar('file')) {
-    echo $controller->getSql(getvar('file'));
-    exit;
-}
-
-// 4. MOSTRAR LA INTERFAZ (Esto es lo que falta)
-// Aquí cargamos los archivos visuales para que la página no esté en blanco
- 
+// Esta es una vista estrictamente de prueba (Testeo)
 ?>
 
 <!DOCTYPE html>
@@ -36,17 +22,18 @@ if ($accion === 'view_sql' && getvar('file')) {
     <?php include 'templates/header.php'; ?>
 
     <main class="container mt-4 flex-grow-1">
-        <div class="card shadow custom-border">
+        <div class="card shadow custom-border border-warning">
             <div class="card-body text-center">
-                <h2 class="mb-4">Lector de Códigos QR</h2>
+                <h2 class="mb-2">Lector de Códigos QR</h2>
+                <p class="text-muted mb-4">Modo Testeo: Solo lectura y recuperación de datos</p>
                 
-                <button class="btn btn-primary mb-3" onclick="toggleLector()">
+                <button class="btn btn-primary mb-3" id="btn-toggle-camera" onclick="toggleLector()">
                     <i class="fa-solid fa-camera"></i> Activar Cámara
                 </button>
 
                 <div id="qr-reader" class="mx-auto" style="width: 100%; max-width: 500px; display: none;"></div>
                 
-                <div id="qr-reader-results" class="mt-3"></div>
+                <div id="qr-reader-results" class="mt-4 text-start" style="max-width: 500px; margin: 0 auto;"></div>
             </div>
         </div>
     </main>
