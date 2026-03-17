@@ -44,78 +44,6 @@ if(getvar("accion") === "login") {
 
         <?php else: ?>
 
-            <div class="row gy-3" id="modulos-de-sistema">
-
-            <?php if ($_SESSION["current_user"]->can("lector_qr.*")): ?>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="d-grid gap-2">
-                    <a href="lector_qr.php" class="btn btn-outline-secondary">
-                        <i class="fa-solid fa-qrcode"></i>
-                        Lector QR
-                    </a>
-                    </div>
-                </div>
-            <?php endif; ?>
-
-            <?php if ($_SESSION["current_user"]->can("evento.*")): ?>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="d-grid gap-2">
-                    <a href="eventos.php" class="btn btn-outline-secondary">
-                        <i class="fa-regular fa-calendar-days"></i>
-                        Eventos
-                    </a>
-                    </div>
-                </div>
-            <?php endif; ?>
-
-            <?php if ($_SESSION["current_user"]->can("usuario.*")): ?>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="d-grid gap-2">
-                    <a href="usuarios.php" class="btn btn-outline-secondary">
-                        <i class="fa-solid fa-users"></i>
-                        Usuarios
-                    </a>
-                    </div>
-                </div>
-            <?php endif; ?>
-
-            <?php if($_SESSION["current_user"]->can("perfil.*")): ?>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="d-grid gap-2">
-                    <a href="perfiles.php" class="btn btn-outline-secondary">
-                        <span class="fa-stack" style="font-size: 0.7em;">
-                            <i class="fa-brands fa-superpowers fa-stack-2x"></i>
-                            <i class="fa-solid fa-users fa-stack-1x"></i>
-                        </span>
-                        Perfiles
-                    </a>
-                    </div>
-                </div>
-            <?php endif; ?>
-
-            <?php if ($_SESSION["current_user"]->can("permiso.*")): ?>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="d-grid gap-2">
-                    <a href="permisos.php" class="btn btn-outline-secondary">
-                        <i class="fa-brands fa-superpowers"></i>
-                        Permisos
-                    </a>
-                    </div>
-                </div>
-            <?php endif; ?>
-
-            <?php if ($_SESSION["current_user"]->can("migracion.*")): ?>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="d-grid gap-2">
-                    <a href="migrations.php" class="btn btn-outline-secondary">
-                        <i class="fa-solid fa-database"></i>
-                        Migraciones
-                    </a>
-                    </div>
-                </div>
-            <?php endif; ?>
-            </div>
-
             <div class="mt-4 d-flex flex-column justify-content-center align-items-center flex-grow-1">
                 <div class="card shadow-sm" style="max-width: 400px; width: 100%;">
                     <div class="card-body text-center p-4">
@@ -130,7 +58,7 @@ if(getvar("accion") === "login") {
                     </div>
                 </div>
             </div>
-            
+
             <script src="assets/js/qr_generator.js"></script>
         <?php endif; ?>
 
