@@ -667,6 +667,12 @@ header#main-header nav.navbar .navbar-brand,
     background-clip: text;
 }
 
+header button#menu-toggler {
+    border-color: var(--secondary);
+    color: var(--primary);
+    margin-right: 15px;
+}
+
 .big-text {
     font-size: var(--text-5xl);
 }
@@ -718,6 +724,7 @@ main .btn {
     letter-spacing: var(--tracking-wide);
     line-height: var(--tw-leading, var(--text-xs--line-height));
     border-radius: var(--radius-xl);
+    padding: 0.75rem 1.25rem
 }
 
 main .btn-primary:hover,

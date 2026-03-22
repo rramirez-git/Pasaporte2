@@ -6,11 +6,16 @@ include_once 'helpers/db.php';
 include_once 'helpers/vars.php';
 include_once 'app/evento/model.php';
 
+if (!isset($_SESSION["current_user"]) || !$_SESSION["current_user"]->can("evento.*")) {
+    header("Location: index.php");
+    exit();
+}
+
 $accion = getvar('accion');
 $object = new Evento();
 $errors = [];
 
-if ($accion === 'create') {
+if ($accion === 'create' && $_SESSION["current_user"]->can("evento.add_evento")) {
     $object->fromArray($_POST);
     try {
         $object->save();
@@ -20,7 +25,7 @@ if ($accion === 'create') {
         $errors[] = "Error al guardar el evento: " . $e->getMessage();
         $accion = 'crear';
     }
-} elseif ($accion === 'update') {
+} elseif ($accion === 'update' && $_SESSION["current_user"]->can("evento.change_evento")) {
     $object->fromArray($_POST);
     $object->pk = getvar('pk');
     try {
@@ -31,7 +36,7 @@ if ($accion === 'create') {
         $errors[] = "Error al guardar el evento: " . $e->getMessage();
         $accion = 'actualizar';
     }
-} elseif ($accion === 'delete' || $accion === 'eliminar') {
+} elseif (($accion === 'delete' || $accion === 'eliminar') && $_SESSION["current_user"]->can("evento.delete_evento")) {
     $object->pk = getvar('pk');
     try {
         $object->delete();
@@ -100,13 +105,13 @@ if ($accion === 'create') {
         <?php endif; ?>
 
         <?php
-        if($accion === 'listar' || $accion === null) {
+        if(($accion === 'listar' || $accion === null) && $_SESSION["current_user"]->can("evento.list_evento")) {
             include 'app/evento/listar.php';
-        } elseif($accion === 'actualizar') {
+        } elseif($accion === 'actualizar' && $_SESSION["current_user"]->can("evento.change_evento")) {
             include 'app/evento/actualizar.php';
-        } elseif ($accion === 'crear') {
+        } elseif ($accion === 'crear' && $_SESSION["current_user"]->can("evento.add_evento")) {
             include 'app/evento/crear.php';
-        } elseif ($accion === 'mostrar') {
+        } elseif ($accion === 'mostrar' && $_SESSION["current_user"]->can("evento.view_evento")) {
             include 'app/evento/mostrar.php';
         }
         ?>

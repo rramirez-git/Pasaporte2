@@ -36,71 +36,20 @@ if(getvar("accion") === "login") {
                     <?php endif; ?>
                     <?php include "app/usuario/form_login.php"; ?>
                     <button type="submit" class="btn btn-primary w-100">Entrar</button>
+
+                    <div class="d-flex flex-column gap-2 mt-4 text-center">
+                        <small class="text-muted">
+                            ¿No tienes una cuenta? <a href="registro.php" class="text-decoration-none fw-bold">Regístrate aquí</a>
+                        </small>
+                        <small class="text-muted">
+                            ¿Olvidaste tu contraseña? <a href="recuperar-contrasena.php" class="text-decoration-none fw-bold">Recupérala aquí</a>
+                        </small>
+                    </div>
                 </form>
             </div>
 
         <?php else: ?>
 
-            <div class="row gy-3" id="modulos-de-sistema">
-
-            <?php if ($_SESSION["current_user"]->can("evento.*")): ?>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="d-grid gap-2">
-                    <a href="eventos.php" class="btn btn-outline-secondary">
-                        <i class="fa-regular fa-calendar-days"></i>
-                        Eventos
-                    </a>
-                    </div>
-                </div>
-            <?php endif; ?>
-
-            <?php if ($_SESSION["current_user"]->can("usuario.*")): ?>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="d-grid gap-2">
-                    <a href="usuarios.php" class="btn btn-outline-secondary">
-                        <i class="fa-solid fa-users"></i>
-                        Usuarios
-                    </a>
-                    </div>
-                </div>
-            <?php endif; ?>
-
-            <?php if($_SESSION["current_user"]->can("perfil.*")): ?>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="d-grid gap-2">
-                    <a href="perfiles.php" class="btn btn-outline-secondary">
-                        <span class="fa-stack" style="font-size: 0.7em;">
-                            <i class="fa-brands fa-superpowers fa-stack-2x"></i>
-                            <i class="fa-solid fa-users fa-stack-1x"></i>
-                        </span>
-                        Perfiles
-                    </a>
-                    </div>
-                </div>
-            <?php endif; ?>
-
-            <?php if ($_SESSION["current_user"]->can("permiso.*")): ?>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="d-grid gap-2">
-                    <a href="permisos.php" class="btn btn-outline-secondary">
-                        <i class="fa-brands fa-superpowers"></i>
-                        Permisos
-                    </a>
-                    </div>
-                </div>
-            <?php endif; ?>
-
-            <?php if ($_SESSION["current_user"]->can("migracion.*")): ?>
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="d-grid gap-2">
-                    <a href="migrations.php" class="btn btn-outline-secondary">
-                        <i class="fa-solid fa-database"></i>
-                        Migraciones
-                    </a>
-                    </div>
-                </div>
-            <?php endif; ?>
-            </div>
             <div class="mt-4 d-flex flex-column justify-content-center align-items-center flex-grow-1">
                 <div class="card shadow-sm" style="max-width: 400px; width: 100%;">
                     <div class="card-body text-center p-4">
@@ -115,6 +64,7 @@ if(getvar("accion") === "login") {
                     </div>
                 </div>
             </div>
+
             <script src="assets/js/qr_generator.js"></script>
         <?php endif; ?>
 

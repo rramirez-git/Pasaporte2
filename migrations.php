@@ -5,7 +5,7 @@ session_start();
 
 include_once 'helpers/vars.php';
 
-if (!isset($_SESSION["current_user"]) || !$_SESSION["current_user"]->can("migracion.*")) {
+if (!isset($_SESSION["current_user"]) || !$_SESSION["current_user"]->can("migracion.run_migracion")) {
     header("Location: index.php");
     exit();
 }
@@ -30,15 +30,17 @@ extract($data);
 <body class="d-flex flex-column vh-100">
     <?php include 'templates/header.php'; ?>
 
-    <main class="flex-grow-1">
+    <main class="flex-grow-1 container">
 <div class="container-fluid mt-4">
     <div class="row">
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="m-0"><i class="fa-solid fa-database"></i> Control de Migraciones</h2>
+                <?php if($_SESSION["current_user"]->can("migracion.run_migracion")): ?>
                 <a href="migrations.php" class="btn btn-primary">
                     <i class="fa-solid fa-rotate"></i> Sincronizar
                 </a>
+                <?php endif; ?>
             </div>
 
             <?php if (!empty($errors)): ?>
@@ -83,7 +85,7 @@ extract($data);
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table id="data-list" class="table table-striped table-bordered" style="width:100%">
+                <table id="data-list" class="table table-hover table-sm" style="width:100%">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -104,7 +106,9 @@ extract($data);
                                 <td><?= htmlspecialchars($row['descripcion']) ?></td>
                                 <td><span class="badge bg-secondary"><?= htmlspecialchars($row['tipo']) ?></span></td>
                                 <td class="text-center">
+                                    <?php if($_SESSION["current_user"]->can("migracion.view_migracion")): ?>
                                     <button class="btn btn-sm btn-outline-primary view-sql-btn" data-file="<?= htmlspecialchars($row['archivo']) ?>" title="Ver SQL"><i class="fa-solid fa-code"></i></button>
+                                    <?php endif; ?>
                                 </td>
                                 <td><?= htmlspecialchars($row['fecha_aplicacion']) ?></td>
                             </tr>
