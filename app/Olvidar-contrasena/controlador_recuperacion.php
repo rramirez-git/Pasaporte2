@@ -65,8 +65,10 @@ function procesar_solicitud_recuperacion() {
 
             $modelo_recuperacion->guardar_token($usuario_id, $token, $expira_en);
 
-            $protocolo = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https://" : "http://";
-            $enlace = $protocolo . $_SERVER['HTTP_HOST'] . "/restablecer_password.php?token=" . $token;
+            $protocolo = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+            $uri_limpia = str_replace(basename($_SERVER['SCRIPT_NAME']), '', $_SERVER["REQUEST_URI"]);
+            $uri_limpia = explode('?', $uri_limpia)[0];
+            $enlace = $protocolo . $_SERVER['HTTP_HOST'] . $uri_limpia . "restablecer_password.php?token=" . $token;
             $asunto = "Recuperación de contraseña";
             $cuerpo = "Hola " . $usuario->nombre . ",\n\nPara restablecer tu contraseña, haz clic en el siguiente enlace:\n" . $enlace . "\n\nEste enlace expira en 1 hora.";
             enviar_correo_smtp($usuario->email, $asunto, $cuerpo);
