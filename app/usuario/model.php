@@ -198,12 +198,7 @@ class Usuario extends Model
         }
         return "id:" . $this->pk;
     }
-    public function getQrDataPublic(): string {
-        if (isset($this->matricula) && trim($this->matricula) !== '') {
-            return "mat:" . trim($this->matricula);
-        }
-        return "id:" . $this->pk;
-    }
+
     
     
 }
