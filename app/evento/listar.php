@@ -49,21 +49,21 @@ $data = $object->getAll();
                         </a>
                     <?php endif; ?>
                     <?php if($_SESSION["current_user"]->can("evento.view_evento")): ?>
-                    <a class="btn btn-outline-secondary" href="eventos.php?accion=mostrar&pk=<?= urlencode($eventos['id']) ?>">
+                    <a title="Mostrar" class="btn btn-outline-secondary" href="eventos.php?accion=mostrar&pk=<?= urlencode($eventos['id']) ?>">
                         <i class="fa-regular fa-eye"></i>
-                        Mostrar
+                        <!-- Mostrar -->
                     </a>
                     <?php endif; ?>
                     <?php if($_SESSION["current_user"]->can("evento.change_evento")): ?>
-                    <a class="btn btn-outline-secondary" href="eventos.php?accion=actualizar&pk=<?= urlencode($eventos['id']) ?>">
+                    <a title="Actualizar" class="btn btn-outline-secondary" href="eventos.php?accion=actualizar&pk=<?= urlencode($eventos['id']) ?>">
                         <i class="fa-solid fa-pen-to-square"></i>
-                        Actualizar
+                        <!-- Actualizar -->
                     </a>
                     <?php endif; ?>
                     <?php if($_SESSION["current_user"]->can("evento.delete_evento")): ?>
-                    <a class="btn btn-outline-danger" href="eventos.php?accion=eliminar&pk=<?= urlencode($eventos['id']) ?>" onclick="return confirm('¿Eliminar este evento?')">
+                    <a title="Eliminar" class="btn btn-outline-danger" href="eventos.php?accion=eliminar&pk=<?= urlencode($eventos['id']) ?>" onclick="return confirm('¿Eliminar este evento?')">
                         <i class="fa-regular fa-trash-can"></i>
-                        Eliminar
+                        <!-- Eliminar -->
                     </a>
                     <?php endif; ?>
                 </td>
