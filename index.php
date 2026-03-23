@@ -64,7 +64,6 @@ if(getvar("accion") === "login") {
                     </div>
                 </div>
             </div>
-
             <script src="assets/js/qr_generator.js"></script>
         <?php endif; ?>
     </main>
