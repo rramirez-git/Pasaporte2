@@ -66,13 +66,8 @@ if(getvar("accion") === "login") {
             </div>
 
             <script src="assets/js/qr_generator.js"></script>
-            <script src="assets/js/escaner.js"></script>
-
         <?php endif; ?>
-
     </main>
-
     <?php include 'templates/footer.php'; ?>
-
 </body>
 </html>
