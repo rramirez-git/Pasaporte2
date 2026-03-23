@@ -26,21 +26,21 @@ $data = $object->getAll();
                 <td><?php echo htmlspecialchars($perfil["nombre"]); ?></td>
                 <td class="text-center">
                     <?php if($_SESSION["current_user"]->can("perfil.view_perfil")): ?>
-                    <a class="btn btn-outline-secondary" href="perfiles.php?accion=mostrar&pk=<?= urlencode($perfil['id']) ?>">
+                    <a title="Mostrar" class="btn btn-outline-secondary" href="perfiles.php?accion=mostrar&pk=<?= urlencode($perfil['id']) ?>">
                         <i class="fa-regular fa-eye"></i>
-                        Mostrar
+                        <!-- Mostrar -->
                     </a>
                     <?php endif; ?>
                     <?php if($_SESSION["current_user"]->can("perfil.change_perfil")): ?>
-                    <a class="btn btn-outline-secondary" href="perfiles.php?accion=actualizar&pk=<?= urlencode($perfil['id']) ?>">
+                    <a title="Actualizar" class="btn btn-outline-secondary" href="perfiles.php?accion=actualizar&pk=<?= urlencode($perfil['id']) ?>">
                         <i class="fa-solid fa-pen-to-square"></i>
-                        Actualizar
+                        <!-- Actualizar -->
                     </a>
                     <?php endif; ?>
                     <?php if($_SESSION["current_user"]->can("perfil.delete_perfil")): ?>
-                    <a class="btn btn-outline-danger" href="perfiles.php?accion=eliminar&pk=<?= urlencode($perfil['id']) ?>" onclick="return confirm('¿Eliminar este perfil?')">
+                    <a title="Eliminar" class="btn btn-outline-danger" href="perfiles.php?accion=eliminar&pk=<?= urlencode($perfil['id']) ?>" onclick="return confirm('¿Eliminar este perfil?')">
                         <i class="fa-regular fa-trash-can"></i>
-                        Eliminar
+                        <!-- Eliminar -->
                     </a>
                     <?php endif; ?>
                 </td>

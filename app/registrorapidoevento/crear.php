@@ -146,10 +146,10 @@ foreach ($usuarios as $usr) {
                             <tr class="fila-disponible">
                                 <td>
                                     <div class="form-check form-switch">
-                                    <input type="checkbox" 
-                                        name="usuario_ids[]" 
-                                        value="<?= $usr['id'] ?>" 
-                                        class="form-check-input chk-usuario" 
+                                    <input type="checkbox"
+                                        name="usuario_ids[]"
+                                        value="<?= $usr['id'] ?>"
+                                        class="form-check-input chk-usuario"
                                         role="switch" />
                                 </div>
                                 </td>
@@ -162,13 +162,13 @@ foreach ($usuarios as $usr) {
                         <?php endforeach; ?>
 
                         <?php foreach ($ya_inscritos as $usr): ?>
-                            <tr class="table-warning fila-inscrita">
+                            <tr class="fila-inscrita">
                                 <td>
                                     <div class="form-check form-switch">
-                                        <input type="checkbox" 
-                                               class="form-check-input" 
-                                               disabled 
-                                               role="switch" 
+                                        <input type="checkbox"
+                                               class="form-check-input"
+                                               disabled
+                                               role="switch"
                                                title="Ya registrado" />
                                     </div>
                                 </td>
