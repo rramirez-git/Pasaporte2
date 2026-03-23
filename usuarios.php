@@ -4,12 +4,25 @@ session_start();
 
 include_once 'helpers/vars.php';
 include_once 'app/usuario/model.php';
+include_once 'app/perfil/model.php';
 
 $accion = getvar('accion');
 $object = new Usuario();
+
+if ($accion === 'logout' || $accion === 'salir') {
+    $object->logout();
+    header('Location: index.php');
+    exit();
+}
+
+if (!isset($_SESSION["current_user"]) || !$_SESSION["current_user"]->can("usuario.*")) {
+    header("Location: index.php");
+    exit();
+}
+
 $errors = [];
 
-if ($accion === 'create') {
+if ($accion === 'create' && $_SESSION["current_user"]->can("usuario.add_usuario")) {
     $object->fromArray($_POST);
     try {
         $object->save();
@@ -19,7 +32,7 @@ if ($accion === 'create') {
         $errors[] = "Error al guardar el usuario: " . $e->getMessage();
         $accion = 'crear';
     }
-} elseif ($accion === 'update') {
+} elseif ($accion === 'update' && $_SESSION["current_user"]->can("usuario.change_usuario")) {
     $object->fromArray($_POST);
     $object->pk = getvar('pk');
     try {
@@ -30,7 +43,7 @@ if ($accion === 'create') {
         $errors[] = "Error al guardar el usuario: " . $e->getMessage();
         $accion = 'actualizar';
     }
-} elseif ($accion === 'delete' || $accion === 'eliminar') {
+} elseif (($accion === 'delete' || $accion === 'eliminar') && $_SESSION["current_user"]->can("usuario.delete_usuario")) {
     $object->pk = getvar('pk');
     try {
         $object->delete();
@@ -40,10 +53,6 @@ if ($accion === 'create') {
         $errors[] = "Error al eliminar el usuario: " . $e->getMessage();
         $accion = 'mostrar';
     }
-} elseif ($accion === 'logout' || $accion === 'salir') {
-    $object->logout();
-    header('Location: index.php');
-    exit();
 }
 ?><!DOCTYPE html>
 <html lang="es-MX">
@@ -68,14 +77,20 @@ if ($accion === 'create') {
         <?php endforeach; ?>
 
         <?php
-        if($accion === 'listar' || $accion === null) {
+        if(($accion === 'listar' || $accion === null) && $_SESSION["current_user"]->can("usuario.list_usuario")) {
             include 'app/usuario/listar.php';
-        } elseif($accion === 'actualizar') {
+        } elseif($accion === 'actualizar' && $_SESSION["current_user"]->can("usuario.change_usuario")) {
             include 'app/usuario/actualizar.php';
-        } elseif ($accion === 'crear') {
+        } elseif ($accion === 'crear' && $_SESSION["current_user"]->can("usuario.add_usuario")) {
             include 'app/usuario/crear.php';
-        } elseif ($accion === 'mostrar') {
+        } elseif ($accion === 'mostrar' && $_SESSION["current_user"]->can("usuario.view_usuario")) {
             include 'app/usuario/mostrar.php';
+        } elseif ($accion === 'carga-masiva' && $_SESSION["current_user"]->can("usuario.add_usuario_masivo")) {
+            include 'app/usuario/carga-masiva.php';
+        } elseif ($accion === 'add-many-step-2' && $_SESSION["current_user"]->can("usuario.add_usuario_masivo")) {
+            include 'app/usuario/carga-masiva-s2.php';
+        } elseif ($accion === 'add-many-step-3' && $_SESSION["current_user"]->can("usuario.add_usuario_masivo")) {
+            include 'app/usuario/carga-masiva-s3.php';
         }
         ?>
 
