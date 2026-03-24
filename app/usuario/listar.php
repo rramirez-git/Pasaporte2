@@ -43,16 +43,16 @@ $data = $object->getAll();
                 <td><?php echo htmlspecialchars($usuario["matricula"] ?? ""); ?></td>
                 <td><?php echo htmlspecialchars($usuario["grupo"] ?? ""); ?></td>
                 <td>
-                    <a class="btn btn-outline-secondary" href="mailto:<?= $usuario['email']; ?>" target="_blank" >
+                    <a title="Enviar E-Mail" class="btn btn-outline-secondary" href="mailto:<?= $usuario['email']; ?>" target="_blank" >
                         <i class="fa-regular fa-envelope"></i>
                         <!-- E-Mail -->
                     </a>
                     <?php if($usuario['whatsapp']): ?>
-                    <a class="btn btn-outline-secondary" href="tel:<?= $usuario['whatsapp']; ?>" target="_blank" >
+                    <a title="Llamar por Teléfono" class="btn btn-outline-secondary" href="tel:<?= $usuario['whatsapp']; ?>" target="_blank" >
                         <i class="fa-solid fa-phone"></i>
                         <!-- Teléfono -->
                     </a>
-                    <a class="btn btn-outline-secondary" href="https://api.whatsapp.com/send?phone=52<?= $usuario['whatsapp']; ?>" target="_blank" >
+                    <a title="Enviar WhatsApp" class="btn btn-outline-secondary" href="https://api.whatsapp.com/send?phone=52<?= $usuario['whatsapp']; ?>" target="_blank" >
                         <i class="fa-brands fa-whatsapp"></i>
                         <!-- WhatsApp -->
                     </a>
@@ -65,19 +65,19 @@ $data = $object->getAll();
                 </td>
                 <td class="text-center">
                     <?php if($_SESSION["current_user"]->can("usuario.view_usuario")): ?>
-                    <a class="btn btn-outline-secondary" href="usuarios.php?accion=mostrar&pk=<?= urlencode($usuario['id']) ?>">
+                    <a title="Mostrar" class="btn btn-outline-secondary" href="usuarios.php?accion=mostrar&pk=<?= urlencode($usuario['id']) ?>">
                         <i class="fa-regular fa-eye"></i>
                         <!-- Mostrar -->
                     </a>
                     <?php endif; ?>
                     <?php if($_SESSION["current_user"]->can("usuario.change_usuario")): ?>
-                    <a class="btn btn-outline-secondary" href="usuarios.php?accion=actualizar&pk=<?= urlencode($usuario['id']) ?>">
+                    <a title="Actualizar" class="btn btn-outline-secondary" href="usuarios.php?accion=actualizar&pk=<?= urlencode($usuario['id']) ?>">
                         <i class="fa-solid fa-pen-to-square"></i>
                         <!-- Actualizar -->
                     </a>
                     <?php endif; ?>
                     <?php if($_SESSION["current_user"]->can("usuario.delete_usuario")): ?>
-                    <a class="btn btn-outline-danger" href="usuarios.php?accion=eliminar&pk=<?= urlencode($usuario['id']) ?>" onclick="return confirm('¿Eliminar este usuario?')">
+                    <a title="Eliminar" class="btn btn-outline-danger" href="usuarios.php?accion=eliminar&pk=<?= urlencode($usuario['id']) ?>" onclick="return confirm('¿Eliminar este usuario?')">
                         <i class="fa-regular fa-trash-can"></i>
                         <!-- Eliminar -->
                     </a>

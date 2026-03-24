@@ -593,6 +593,7 @@ body {
     font-size: var(--text-xs);
     color: color-mix(in oklab, var(--color-white) 60%, transparent);
     line-height: var(--leading-relaxed);
+    padding-bottom: 100px;
 }
 
 button,
@@ -727,6 +728,10 @@ main .btn {
     padding: 0.75rem 1.25rem
 }
 
+footer#main-footer {
+    background-color: var(--bg-color);
+}
+
 main .btn-primary:hover,
 main .btn-outline-primary:hover,
 footer#main-footer .btn-primary:hover,
@@ -804,6 +809,10 @@ main table.dataTable.dtr-inline.collapsed>tbody>tr.dtr-expanded>td.dtr-control::
 
 main table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control::before {
     border-left-color: var(--primary);
+}
+
+main table.table tr.fila-inscrita td {
+    color: var(--bs-info);
 }
 
 #qrcode {
