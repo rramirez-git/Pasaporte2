@@ -19,6 +19,14 @@ include_once "helpers/vars.php";
             Pasaporte TICs: Tu Ruta al Conocimiento
         </h1>
 
+        <div class="row my-3">
+            <div class="col text-center">
+                <button onclick="toggleTheme()" id="theme-toggle" type="button" class="btn btn-outline-primary btn-sm">
+                    UI_THEME_SELECT
+                </button>
+            </div>
+        </div>
+
         <h2>¿De qué se trata?</h2>
 
         <p>
@@ -54,6 +62,17 @@ include_once "helpers/vars.php";
 
         <h1 class="mb-4"><span class="colores-gay big-text">¡Prepara tu perfil y comienza tu viaje por la Semana de TICs!</span></h1>
 
+        <p class="lead">Pasaporte TICs. Copyright &copy; 2026. Todos los derechos reservados.</p>
+
+        <div class="row my-3">
+            <div class="col text-center">
+                <button onclick="toggleTheme()" id="theme-toggle" type="button" class="btn btn-outline-primary btn-sm">
+                    UI_THEME_SELECT
+                </button>
+            </div>
+        </div>
+
+        <!--
         <h4 class="text-center mb-4" style="color: var(--text-color); font-weight: var(--font-weight-light); opacity: 0.8;">
             Descubre nuestras últimas actividades
         </h4>
@@ -73,6 +92,7 @@ include_once "helpers/vars.php";
                 <i class="fab fa-instagram me-2"></i> Síguenos
             </a>
         </div>
+        -->
 
         <div style="min-height: 100px;"></div>
 

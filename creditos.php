@@ -168,6 +168,7 @@ include_once "helpers/vars.php";
 
         </div>
 
+        <!--
         <h4 class="text-center mb-4" style="color: var(--text-color); font-weight: var(--font-weight-light); opacity: 0.8;">
             Descubre nuestras últimas actividades
         </h4>
@@ -187,6 +188,7 @@ include_once "helpers/vars.php";
                 <i class="fab fa-instagram me-2"></i> Síguenos
             </a>
         </div>
+        -->
 
         <div style="min-height: 100px;"></div>
 
