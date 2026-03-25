@@ -5,7 +5,13 @@ session_start();
 include_once 'helpers/vars.php';
 include_once 'app/evento/model.php';
 
-if (!isset($_SESSION["current_user"]) || !$_SESSION["current_user"]->can("evento.*")) {
+if (!isset($_SESSION["current_user"])) {
+    header("Location: index.php");
+    exit();
+}
+
+if (!$_SESSION["current_user"]->can("evento.*") && 
+    $accion !== null && $accion !== 'listar' && $accion !== 'mostrar') {
     header("Location: index.php");
     exit();
 }
@@ -13,6 +19,18 @@ if (!isset($_SESSION["current_user"]) || !$_SESSION["current_user"]->can("evento
 $accion = getvar('accion');
 $object = new Evento();
 $errors = [];
+
+
+$es_admin = $_SESSION["current_user"]->can("evento.*");
+
+if ($accion === 'listar_expirados' && $es_admin) {
+    $data = $object->getEventosExpirados();
+    $vista_titulo = "Eventos Expirados";
+} else {
+    $data = $object->getEventosPorRol($es_admin);
+    $vista_titulo = $es_admin ? "Todos los Eventos" : "Eventos Disponibles";
+}
+
 
 if ($accion === 'create' && $_SESSION["current_user"]->can("evento.add_evento")) {
     $object->fromArray($_POST);
@@ -69,7 +87,7 @@ if ($accion === 'create' && $_SESSION["current_user"]->can("evento.add_evento"))
         <?php endforeach; ?>
 
         <?php
-        if(($accion === 'listar' || $accion === null) && $_SESSION["current_user"]->can("evento.list_evento")) {
+       if(($accion === 'listar' || $accion === null)) {
             include 'app/evento/listar.php';
         } elseif($accion === 'actualizar' && $_SESSION["current_user"]->can("evento.change_evento")) {
             include 'app/evento/actualizar.php';
@@ -77,6 +95,8 @@ if ($accion === 'create' && $_SESSION["current_user"]->can("evento.add_evento"))
             include 'app/evento/crear.php';
         } elseif ($accion === 'mostrar' && $_SESSION["current_user"]->can("evento.view_evento")) {
             include 'app/evento/mostrar.php';
+        } elseif ($accion === 'listar_expirados' && $_SESSION["current_user"]->can("evento.*")) {
+            include 'app/evento/listar.php';
         }
         ?>
 
