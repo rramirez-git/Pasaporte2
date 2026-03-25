@@ -168,6 +168,26 @@ include_once "helpers/vars.php";
 
         </div>
 
+        <h4 class="text-center mb-4" style="color: var(--text-color); font-weight: var(--font-weight-light); opacity: 0.8;">
+            Descubre nuestras últimas actividades
+        </h4>
+
+        <div class="card p-3 mb-4" style="border-radius: 24px;">
+            <script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script>
+            <iframe src="//lightwidget.com/widgets/ec85b02092e35b879334c0f3b5a05c69.html"
+                    scrolling="no"
+                    allowtransparency="true"
+                    class="lightwidget-widget"
+                    style="width:100%; border:0; overflow:hidden;">
+            </iframe>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="https://www.instagram.com/cybervibe_2026/" target="_blank" class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow">
+                <i class="fab fa-instagram me-2"></i> Síguenos
+            </a>
+        </div>
+
         <div style="min-height: 100px;"></div>
 
     </main>
