@@ -5,27 +5,36 @@ $data = $data;
 
 <div class="clearfix mb-3">
 <div class="btn-group float-end" role="group" aria-label="Barra de Herramientas">
-   <?php if($_SESSION["current_user"]->can("evento.*")): ?>
-<a type="button" class="btn btn-outline-primary" href="eventos.php?accion=crear">
-    <i class="fa-solid fa-plus"></i>
-    Nuevo
-</a>
-<?php endif; ?>
 
+    <?php if ($_SESSION["current_user"]->can("evento.add_evento_masivo")): ?>
+        <a type="button" class="btn btn-outline-primary" href="eventos.php?accion=carga-masiva">
+            <i class="fa-solid fa-rectangle-list"></i>
+            Carga Masiva
+        </a>
+    <?php endif; ?>
 
-<?php if($_SESSION["current_user"]->can("evento.*")): ?>
-<?php if($accion !== 'listar_expirados'): ?>
-<a type="button" class="btn btn-outline-warning" href="eventos.php?accion=listar_expirados">
-    <i class="fa-solid fa-clock"></i>
-    Ver Expirados
-</a>
-<?php else: ?>
-<a type="button" class="btn btn-outline-primary" href="eventos.php?accion=listar">
-    <i class="fa-solid fa-calendar"></i>
-    Ver Activos
-</a>
-<?php endif; ?>
-<?php endif; ?>
+    <?php if($_SESSION["current_user"]->can("usuario.add_usuario")): ?>
+    <a type="button" class="btn btn-outline-primary" href="eventos.php?accion=crear">
+        <i class="fa-solid fa-plus"></i>
+        Nuevo
+    </a>
+    <?php endif; ?>
+  
+  
+    <?php if($_SESSION["current_user"]->can("evento.*")): ?>
+    <?php if($accion !== 'listar_expirados'): ?>
+    <a type="button" class="btn btn-outline-warning" href="eventos.php?accion=listar_expirados">
+        <i class="fa-solid fa-clock"></i>
+        Ver Expirados
+    </a>
+    <?php else: ?>
+    <a type="button" class="btn btn-outline-primary" href="eventos.php?accion=listar">
+        <i class="fa-solid fa-calendar"></i>
+        Ver Activos
+    </a>
+    <?php endif; ?>
+    <?php endif; ?>
+
 </div>
 </div>
 
@@ -37,9 +46,6 @@ $data = $data;
             <th>Lugar</th>
             <th>Responsable Interno</th>
             <th>Responsable Externo</th>
-            <th>Costo interno</th>
-            <th>Costo externo</th>
-            <th>Registro</th>
             <th></th>
         </tr>
     </thead>
@@ -47,30 +53,36 @@ $data = $data;
         <?php foreach ($data as $eventos) : ?>
             <tr>
                 <td><?= htmlspecialchars($eventos['nombre']) ?></td>
-                <td><?= htmlspecialchars($eventos['fecha_hora']) ?></td>
+                <td><?= htmlspecialchars((new DateTime($eventos['fecha_hora']))->format('d/m/Y H:i')) ?></td>
                 <td><?= htmlspecialchars($eventos['lugar']) ?></td>
                 <td><?= htmlspecialchars($eventos['responsable_interno']) ?></td>
                 <td><?= htmlspecialchars($eventos['responsable_externo']) ?></td>
-                <td><?= htmlspecialchars($eventos['costo_interno']) ?></td>
-                <td><?= htmlspecialchars($eventos['costo_externo']) ?></td>
-                <td><?= htmlspecialchars($eventos['requiere_registro']) ?></td>
                 <td class="text-center">
+                    <?php
+                    $now = new DateTime();
+                    $fecha = new DateTime($eventos['fecha_hora']);
+                    if ($fecha >= $now): ?>
+                        <a title="Registrarme" class="btn btn-sm btn-primary" href="eventos.php?accion=autoregistrar&evento_id=<?= urlencode($eventos['id']) ?>">
+                            <i class="fa-solid fa-right-to-bracket"></i>
+                            Registrarme
+                        </a>
+                    <?php endif; ?>
                     <?php if($_SESSION["current_user"]->can("evento.view_evento")): ?>
-                    <a class="btn btn-outline-secondary" href="eventos.php?accion=mostrar&pk=<?= urlencode($eventos['id']) ?>">
+                    <a title="Mostrar" class="btn btn-outline-secondary" href="eventos.php?accion=mostrar&pk=<?= urlencode($eventos['id']) ?>">
                         <i class="fa-regular fa-eye"></i>
-                        Mostrar
+                        <!-- Mostrar -->
                     </a>
                     <?php endif; ?>
                     <?php if($_SESSION["current_user"]->can("evento.change_evento")): ?>
-                    <a class="btn btn-outline-secondary" href="eventos.php?accion=actualizar&pk=<?= urlencode($eventos['id']) ?>">
+                    <a title="Actualizar" class="btn btn-outline-secondary" href="eventos.php?accion=actualizar&pk=<?= urlencode($eventos['id']) ?>">
                         <i class="fa-solid fa-pen-to-square"></i>
-                        Actualizar
+                        <!-- Actualizar -->
                     </a>
                     <?php endif; ?>
                     <?php if($_SESSION["current_user"]->can("evento.delete_evento")): ?>
-                    <a class="btn btn-outline-danger" href="eventos.php?accion=eliminar&pk=<?= urlencode($eventos['id']) ?>" onclick="return confirm('¿Eliminar este evento?')">
+                    <a title="Eliminar" class="btn btn-outline-danger" href="eventos.php?accion=eliminar&pk=<?= urlencode($eventos['id']) ?>" onclick="return confirm('¿Eliminar este evento?')">
                         <i class="fa-regular fa-trash-can"></i>
-                        Eliminar
+                        <!-- Eliminar -->
                     </a>
                     <?php endif; ?>
                 </td>

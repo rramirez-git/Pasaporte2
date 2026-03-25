@@ -9,7 +9,7 @@ function registrar_usuario(): array
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $usuario = new Usuario();
-        
+
         if (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email']) || empty($_POST['nombre']) || empty($_POST['apaterno']) || empty($_POST['whatsapp']) || empty($_POST['grupo']) || empty($_POST['matricula'])) {
             $errors[] = "Nombre, apellido paterno, matrícula, correo electrónico, whatsapp, grupo, nombre de usuario y contraseña son obligatorios.";
         } elseif ($_POST['password'] !== $_POST['password_confirm']) {
@@ -23,13 +23,21 @@ function registrar_usuario(): array
             if ($existingUser->select("email = ?", [$_POST['email']])) {
                 $errors[] = "El correo electrónico ya está en uso.";
             }
+            $existingUser = new Usuario();
+            if ($existingUser->select("matricula = ?", [$_POST['matricula']])) {
+                $errors[] = "La matrícula ya está registrada.";
+            }
+            $existingUser = new Usuario();
+            if ($existingUser->select("whatsapp = ?", [$_POST['whatsapp']])) {
+                $errors[] = "El número de WhatsApp ya está registrado.";
+            }
 
             if (empty($errors)) {
                 $data = $_POST;
                 $data['superusuario'] = 0;
                 $data['activo'] = 1;
                 $data['categoria'] = 'basico y alumno';
-                
+
                 unset($data['password_confirm']);
 
                 $usuario->fromArray($data);
@@ -39,7 +47,7 @@ function registrar_usuario(): array
                         // Asignar perfiles "basico" y "alumno"
                         $perfilModel = new Perfil();
                         $perfiles_a_asignar = ['basico', 'alumno'];
-                        
+
                         $utp_table = new Table('usuario_tiene_perfil');
 
                         foreach($perfiles_a_asignar as $nombre_perfil) {
