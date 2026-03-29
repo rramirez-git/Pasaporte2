@@ -51,7 +51,7 @@ if(!function_exists("currentUserCan")) {
                     </li>
                     <?php endif; ?>
 
-                    <?php if ($_SESSION["current_user"]->can("otro.registrar_en_evento_rapido")): ?>
+                    <?php if (currentUserCan("otro.registrar_en_evento_rapido")): ?>
                     <li class="nav-item text-center"><a href="registrorapidoevento.php" class="nav-link">
                         <i class="fa-solid fa-user-plus"></i>
                         Registro Rápido a Eventos
