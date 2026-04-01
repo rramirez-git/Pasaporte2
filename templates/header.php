@@ -3,7 +3,10 @@ if(!function_exists("currentUserCan")) {
     include_once __DIR__ . "/../init.php";
 }
 ?><script type="text/javascript">
-    <?php if(isset($_SESSION["current_user"]) && $_SESSION["current_user"]->is_authenticated()): ?>
+    <?php if(isset($_SESSION["current_user"]) && $_SESSION["current_user"]->is_authenticated()): ?>     
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Expires" content="0">
         let current_user = `<?php echo $_SESSION["current_user"] ?>`;
     <?php else: ?>
         let current_user = `Anonymous`;
