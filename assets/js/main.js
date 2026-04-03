@@ -70,3 +70,14 @@ document.addEventListener('DOMContentLoaded', () => {
     tblDataList = $('table#data-list');
     datatblDataList = tblDataList.DataTable({"responsive": true});
 });
+window.addEventListener('pageshow', function(event) {
+    if (event.persisted) {
+        window.location.reload();
+    }
+});
+ 
+document.addEventListener('DOMContentLoaded', function() {
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+}); 
