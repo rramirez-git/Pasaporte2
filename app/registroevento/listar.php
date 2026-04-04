@@ -127,4 +127,17 @@ $categorias = $object->getCategorias();
     </div>
 </div>
 
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', () => {
+        let sortTable = () => {
+            if(datatblDataList !== null) {
+                datatblDataList.order([1, 'asc'], [0, 'asc'], [3, 'asc']).draw();
+            } else {
+                setTimeout(sortTable, 100);
+            }
+        }
+        sortTable();
+    });
+</script>
+
 <script src="assets/js/registroevento.js"></script>

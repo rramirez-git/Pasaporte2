@@ -108,6 +108,19 @@ $usr_aux = new Usuario();
     </table>
 <?php endif; ?>
 
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', () => {
+        let sortTable = () => {
+            if(datatblDataList !== null) {
+                datatblDataList.order([2, 'asc'], [0, 'asc']).draw();
+            } else {
+                setTimeout(sortTable, 100);
+            }
+        }
+        sortTable();
+    });
+</script>
+
 <div class="row">
     <div class="col-sm-6">
         <p class="h4">Permisos del Usuario:</p>

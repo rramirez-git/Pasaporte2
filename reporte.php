@@ -10,8 +10,10 @@ if(checkVar("type", "usuario") && currentUserCan("reporte.usuario")) {
     $data = $usr_aux->query("SELECT * FROM reporte_usuarios");
     $headers = $data ? array_keys($data[0]) : [];
     unset($headers[0]);
-    $headers[5] = "Eventos Registrados";
-    $headers[6] = "Eventos Asistidos";
+    $headers[4] = "A. Paterno";
+    $headers[5] = "A. Materno";
+    $headers[6] = "Eventos Registrados";
+    $headers[7] = "Eventos Asistidos";
     $title = "Reporte de Usuarios";
     foreach ($data as $idx => $row) {
         $data[$idx]['matricula'] = '<a href="usuarios.php?accion=mostrar&pk=' . $row['id'] . '#data-list">' . htmlspecialchars($row['matricula']) . '</a>';
